@@ -1,2 +1,2 @@
 # EiP-Praktikum
-Github Repo von Infor > Mathe für das EiP Praktikum
+Github Repo von Info > Math für das EiP Praktikum
