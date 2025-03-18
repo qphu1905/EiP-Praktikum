@@ -3,9 +3,9 @@ import pygame as pg
 pg.init()
 
 screen = pg.display.set_mode((1200, 700))
-pg.display.set_caption('Cave')
+pg.display.set_caption('Dungeon')
 
-background = pg.image.load('cave_wall2.jpg')
+background = pg.image.load('Main_Background.png')
 game_active = True
 while game_active:
     for event in pg.event.get():
