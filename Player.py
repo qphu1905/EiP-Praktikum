@@ -2,42 +2,42 @@ import pygame
 from Entities import Entities
 
 class Player(Entities):
-    gravity = 10
-    def __init__(self, image, rect, hitpoints, y_speed, x_coord, y_coord):
+    def __init__(self, image, rect, x_coord, y_coord, hitpoints = 100, speed = 100):
         Entities.__init__(self)
         self.image = image
         self.rect = rect
-        self.hitpoint = hitpoints
-        self.x_speed = 10
-        self.y_speed = y_speed
         self.x_coord = x_coord
         self.y_coord = y_coord
-
+        self.rect.x = x_coord
+        self.rect.y = y_coord
+        self.hitpoint = hitpoints
+        self.speed = speed
+        self.x_speed = 0
+        self.y_speed = 0
 
     def moveleft(self, delta_time):
-        self.x_coord -= self.x_speed * delta_time
-        self.rect.Rect.move(-self.x_speed * delta_time, 0)
+        self.x_speed = -self.speed * delta_time
+        self.x_coord += self.x_speed
+        self.rect.x += self.x_speed
 
 
     def moveright(self, delta_time):
-        self.x_coord += self.x_speed * delta_time
-        self.rect.Rect.move(self.x_speed * delta_time, 0)
+        self.x_speed = self.speed * delta_time
+        self.x_coord += self.x_speed
+        self.rect.x += self.x_speed
 
 
     def jump(self, delta_time):
         self.y_coord -= self.y_speed * delta_time
-        self.rect.Rect.move(0, -self.y_speed * delta_time)
-        self.y_speed += self.gravity * delta_time
+        self.rect.y -= self.y_speed * delta_time
 
 
     def collision(self, platforms):
         for p in platforms:
-            if pygame.sprite.collide_rect(self, p):
+            if pygame.Rect.colliderect(self.rect, p.rect):
+                print('COllided')
                 if self.x_speed > 0:
                     self.rect.right = p.rect.left
                 if self.x_speed < 0:
                     self.rect.left = p.rect.right
-                if self.y_speed > 0:
-                    self.rect.bottom = p.rect.top
-                if self.y_speed < 0:
-                    self.rect.top = p.rect.bottom
+
