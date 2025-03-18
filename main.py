@@ -1,4 +1,23 @@
 import pygame
+import os
+
+
+def load_img(filename):
+    '''Load image and return image object, rectangle of image.'''
+    filepath = os.path.join('asset', filename)
+    try:
+        image = pygame.image.load(filepath)
+        if image.get_alpha() is None:
+            image = image.convert()
+        else:
+            image = image.convert_alpha()
+    except FileNotFoundError:
+        print(f'File {filepath} found')
+    return image, image.get_rect()
+
+
+#def load_sound() if sound is added
+
 
 #pygame setup
 SCREEN_WIDTH = 800
