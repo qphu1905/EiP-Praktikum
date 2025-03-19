@@ -3,6 +3,7 @@ import os
 from Player import Player
 from Platform import Platform
 from math import *
+from Ghost import Ghost
 
 def load_img(filename):
     """Load image and return image object, rectangle of image."""
@@ -55,7 +56,12 @@ def main():
     player_rect = player_loaded_image[1]
     player = Player(player_image, player_rect, 480, 320, 100 )
     player.add(sprite_entities)
-    Chasing_Enemys = []
+    ghost_loaded_image = load_img('Ghost.png')
+    ghost_image = ghost_loaded_image[0]
+    ghost_rect = ghost_loaded_image[1]
+    ghost_1 = Ghost(ghost_image, ghost_rect, 700, 320)
+    ghost_1.add(sprite_entities)
+    chasing_enemys = [ghost_1]
     level = ['p             p',
              'p             p',
              'p             p',
@@ -85,8 +91,8 @@ def main():
             player.moveright(dt)
 
         player.collision(platforms)
-        for Enemy in Chasing_Enemys:
-                Enemy.chase((player.x_coord, player.y_coord), dt)
+        for Enemy in chasing_enemys:
+                Enemy.chase(player.x_coord, player.y_coord, dt)
         screen.fill('black')
         #Render graphic here
         sprite_entities.draw(screen)

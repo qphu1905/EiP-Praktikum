@@ -20,7 +20,6 @@ class Enemy(Entities):
     def collision(self, platforms):
         for p in platforms:
             if pygame.Rect.colliderect(self.rect, p.rect):
-                print('COllided')
                 if self.x_speed > 0:
                     self.rect.right = p.rect.left
                 if self.x_speed < 0:
