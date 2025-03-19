@@ -2,6 +2,7 @@ import pygame
 import os
 from Player import Player
 from Platform import Platform
+from math import *
 
 def load_img(filename):
     """Load image and return image object, rectangle of image."""
@@ -42,18 +43,19 @@ def main():
     SCREEN_WIDTH = 960
     SCREEN_HEIGHT = 640
 
+
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     running = True
-
     sprite_entities = pygame.sprite.Group()
     player_loaded_image = load_img('ninja_resized.png')
     player_image = player_loaded_image[0]
     player_rect = player_loaded_image[1]
     player = Player(player_image, player_rect, 480, 320, 100 )
     player.add(sprite_entities)
-
+    Chasing_Enemys = []
     level = ['p             p',
              'p             p',
              'p             p',
@@ -83,9 +85,9 @@ def main():
             player.moveright(dt)
 
         player.collision(platforms)
-
+        for Enemy in Chasing_Enemys:
+                Enemy.chase((player.x_coord, player.y_coord), dt)
         screen.fill('black')
-
         #Render graphic here
         sprite_entities.draw(screen)
         pygame.display.flip()   #Flip display

@@ -10,7 +10,7 @@ class Player(Entities):
         self.y_coord = y_coord
         self.rect.x = x_coord
         self.rect.y = y_coord
-        self.hitpoint = hitpoints
+        self.hitpoints = hitpoints
         self.speed = speed
         self.x_speed = 0
         self.y_speed = 0
