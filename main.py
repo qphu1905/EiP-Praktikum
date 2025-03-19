@@ -1,21 +1,12 @@
 import pygame
 import os
+
 from Player import Player
 from Platform import Platform
 from math import *
+from Ghost import Ghost
 
-def load_img(filename):
-    """Load image and return image object, rectangle of image."""
-    filepath = os.path.join('asset', filename)
-    try:
-        image = pygame.image.load(filepath)
-        if image.get_alpha() is None:
-            image = image.convert()
-        else:
-            image = image.convert_alpha()
-        return image, image.get_rect()
-    except FileNotFoundError:
-        print(f'File {filepath} found')
+
 
 
 #def load_sound() if sound is added
@@ -28,10 +19,7 @@ def load_map(level, resolution: int, sprite_entities):
         x = 0
         for column in row:
             if column == 'p':
-                platform_loaded_image = load_img('brickwall.png')
-                platform_image = platform_loaded_image[0]
-                platform_rect = platform_loaded_image[1]
-                p = Platform(platform_image, platform_rect, x, y)
+                p = Platform(x, y)
                 platforms.append(p)
                 p.add(sprite_entities)
             x += resolution
@@ -50,12 +38,13 @@ def main():
     clock = pygame.time.Clock()
     running = True
     sprite_entities = pygame.sprite.Group()
-    player_loaded_image = load_img('ninja_resized.png')
-    player_image = player_loaded_image[0]
-    player_rect = player_loaded_image[1]
-    player = Player(player_image, player_rect, 480, 320, 100 )
+    Ghost_1 = Ghost(480, 320)
+    player = Player(480, 320, 100 )
     player.add(sprite_entities)
+    Ghost_1.add(sprite_entities)
+    print(sprite_entities)
     Chasing_Enemys = []
+    Chasing_Enemys.append(Ghost_1)
     level = ['p             p',
              'p             p',
              'p             p',
@@ -86,12 +75,14 @@ def main():
 
         player.collision(platforms)
         for Enemy in Chasing_Enemys:
-                Enemy.chase((player.x_coord, player.y_coord), dt)
+                Enemy.chase(player.x_coord, player.y_coord, dt)
         screen.fill('black')
         #Render graphic here
+
         sprite_entities.draw(screen)
         pygame.display.flip()   #Flip display
         clock.tick(60)          #Limit FPS: 60
+
 
     pygame.quit()
 

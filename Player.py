@@ -2,10 +2,10 @@ import pygame
 from Entities import Entities
 
 class Player(Entities):
-    def __init__(self, image, rect, x_coord, y_coord, hitpoints = 100, speed = 100):
+    def __init__(self, x_coord, y_coord, hitpoints = 100, speed = 100):
         Entities.__init__(self)
-        self.image = image
-        self.rect = rect
+        self.image = super().load_img('ninja_resized.png')[0]
+        self.rect = super().load_img('ninja_resized.png')[1]
         self.x_coord = x_coord
         self.y_coord = y_coord
         self.rect.x = x_coord
@@ -14,6 +14,7 @@ class Player(Entities):
         self.speed = speed
         self.x_speed = 0
         self.y_speed = 0
+
 
     def moveleft(self, delta_time):
         self.x_speed = -self.speed * delta_time
