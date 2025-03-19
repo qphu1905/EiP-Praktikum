@@ -26,7 +26,10 @@ class Chasing_Enemy(Enemy):
             return [(x_sign, y_sign), (x_distance, y_distance), distance_total]
         distance = distance_to_player(player_x, player_y)
         if distance[2]<1000:
-            self.x_coord += distance[0][0] * self.speed * dt
-            self.y_coord -= distance[0][1] * self.speed * dt
-        
+            if not 5>distance[1][0]>-5:
+                self.x_coord += distance[0][0] * self.speed * dt
+                self.rect.x = self.x_coord
+            if not 5>distance[1][1]>-5:
+                self.rect.y = self.y_coord
+                self.y_coord -= distance[0][1] * self.speed * dt
 

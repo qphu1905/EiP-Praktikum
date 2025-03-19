@@ -56,7 +56,7 @@ def main():
     player_rect = player_loaded_image[1]
     player = Player(player_image, player_rect, 480, 320, 100 )
     player.add(sprite_entities)
-    ghost_loaded_image = load_img('Ghost.png')
+    ghost_loaded_image = load_img('Ghost_black.jpg')
     ghost_image = ghost_loaded_image[0]
     ghost_rect = ghost_loaded_image[1]
     ghost_1 = Ghost(ghost_image, ghost_rect, 700, 320)
@@ -83,13 +83,14 @@ def main():
         #Logical update here
         dt = clock.tick(60) / 1000
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
-            player.jump(dt)
+        if keys[pygame.K_SPACE] and player.y_speed==0:
+            player.jump_normal(dt)
         if keys[pygame.K_a]:
             player.moveleft(dt)
         if keys[pygame.K_d]:
             player.moveright(dt)
 
+        player.gravity(dt)
         player.collision(platforms)
         for Enemy in chasing_enemys:
                 Enemy.chase(player.x_coord, player.y_coord, dt)
@@ -98,7 +99,7 @@ def main():
         sprite_entities.draw(screen)
         pygame.display.flip()   #Flip display
         clock.tick(60)          #Limit FPS: 60
-
+        print(player.x_coord, player.y_coord)
     pygame.quit()
 
 
