@@ -13,7 +13,7 @@ pg.display.set_caption("Platformer")
 tile_size = 50
 
 #load images
-background = pg.image.load("Main_Background.png")
+background = pg.image.load("Main_Background 3.png")
 background = pg.transform.scale(background, (1000, 1000))
 
 
@@ -24,7 +24,7 @@ class World():
         #load images
         #jump_pad_img1/2/3 not implemented yet
         wall_img = pg.image.load("brick_wall.png")
-        jump_pad_img = pg.image.load("Jumping_Pad_1.png")
+        jump_pad_img = pg.image.load("Jumping_Pad_4.png")
         jump_pad_img2 = pg.image.load("Jumping_Pad_2.png")
         jump_pad_img3 = pg.image.load("Jumping_Pad_3_Stage_1.png")
 
@@ -78,10 +78,10 @@ world_data =[
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
