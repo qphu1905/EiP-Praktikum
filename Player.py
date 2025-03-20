@@ -6,38 +6,40 @@ class Player(Entities):
         Entities.__init__(self)
         self.image = image
         self.rect = rect
-        self.x_coord = x_coord
-        self.y_coord = y_coord
-        self.rect.x = x_coord
-        self.rect.y = y_coord
-        self.hitpoint = hitpoints
-        self.speed = speed
-        self.x_speed = 0
-        self.y_speed = 0
 
-    def moveleft(self, delta_time):
-        self.x_speed = -self.speed * delta_time
-        self.x_coord += self.x_speed
-        self.rect.x += self.x_speed
+        self.pos = pygame.Vector2(x_coord, y_coord)
+        self.velocity = pygame.Vector2(0,0)
+        self.acceleration = pygame.Vector2(0,0)
+        self.onground = False
+        self.jumps = 0
+
+    def move(self, acc, fric):
+        self.acceleration = pygame.Vector2(0,0.5)
+
+        pressed_keys = pygame.key.get_pressed()
+
+        if pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_a]:
+            self.acceleration.x = -acc
+        if pressed_keys[pygame.K_RIGHT] or pressed_keys[pygame.K_d]:
+            self.acceleration.x = acc
+        if pressed_keys[pygame.K_DOWN] or pressed_keys[pygame.K_s]:
+            self.acceleration.y += 1
+
+        self.acceleration.x += self.velocity.x * fric
+        self.velocity += self.acceleration
+        self.pos += self.velocity + 0.5 * self.acceleration
+        self.rect.center = self.pos
 
 
-    def moveright(self, delta_time):
-        self.x_speed = self.speed * delta_time
-        self.x_coord += self.x_speed
-        self.rect.x += self.x_speed
+    def jump(self):
+        #if self.onground:
+            self.velocity.y = -15
+            self.onground = False
 
 
-    def jump(self, delta_time):
-        self.y_coord -= self.y_speed * delta_time
-        self.rect.y -= self.y_speed * delta_time
-
-
-    def collision(self, platforms):
-        for p in platforms:
-            if pygame.Rect.colliderect(self.rect, p.rect):
-                print('COllided')
-                if self.x_speed > 0:
-                    self.rect.right = p.rect.left
-                if self.x_speed < 0:
-                    self.rect.left = p.rect.right
-
+    def update(self, player, platform_entities):
+        hits = pygame.sprite.spritecollide(player, platform_entities, False)
+        if hits:
+            self.pos.y = hits[0].rect.top - (self.rect.h / 2)
+            self.velocity.y = 0
+            self.onground = True
