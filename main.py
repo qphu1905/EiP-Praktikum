@@ -4,6 +4,7 @@ from Player import Player
 from Platform import Platform
 from math import *
 from Ghost import Ghost
+from Chasing_Enemy import Chasing_Enemy
 
 def load_img(filename):
     """Load image and return image object, rectangle of image."""
@@ -51,17 +52,19 @@ def main():
     clock = pygame.time.Clock()
     running = True
     sprite_entities = pygame.sprite.Group()
+    all_enemys = []
     player_loaded_image = load_img('ninja_resized.png')
     player_image = player_loaded_image[0]
     player_rect = player_loaded_image[1]
-    player = Player(player_image, player_rect, 480, 320, 100 )
+    player = Player(player_image, player_rect, 480, 320 )
     player.add(sprite_entities)
     ghost_loaded_image = load_img('Ghost_black.jpg')
     ghost_image = ghost_loaded_image[0]
     ghost_rect = ghost_loaded_image[1]
     ghost_1 = Ghost(ghost_image, ghost_rect, 700, 320)
     ghost_1.add(sprite_entities)
-    chasing_enemys = [ghost_1]
+    all_enemys.append(ghost_1)
+    chasing_enemys = [i for i in all_enemys if isinstance(i, Chasing_Enemy)]
     level = ['p             p',
              'p             p',
              'p             p',
@@ -84,22 +87,24 @@ def main():
         dt = clock.tick(60) / 1000
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and player.y_speed==0:
-            player.jump_normal(dt)
+            player.jump_normal()
         if keys[pygame.K_a]:
             player.moveleft(dt)
         if keys[pygame.K_d]:
             player.moveright(dt)
 
         player.gravity(dt)
-        player.collision(platforms)
-        for Enemy in chasing_enemys:
-                Enemy.chase(player.x_coord, player.y_coord, dt)
+        for chasing_enemy in chasing_enemys:
+                chasing_enemy.chase(player.rect, dt)
+        enemy_hitboxes=[i for i in all_enemys ]
+        player.collision(platforms, enemy_hitboxes, dt)
+
         screen.fill('black')
         #Render graphic here
         sprite_entities.draw(screen)
         pygame.display.flip()   #Flip display
         clock.tick(60)          #Limit FPS: 60
-        print(player.x_coord, player.y_coord)
+        print(player.hitpoints)
     pygame.quit()
 
 
