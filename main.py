@@ -58,7 +58,7 @@ def main():
     player_rect = player_loaded_image[1]
     player = Player(player_image, player_rect, 480, 320 )
     player.add(sprite_entities)
-    ghost_loaded_image = load_img('Ghost_black.jpg')
+    ghost_loaded_image = load_img('Ghost_black.jpg')   #just creating a single ghost manually for testing, also made some lists that are useless for now
     ghost_image = ghost_loaded_image[0]
     ghost_rect = ghost_loaded_image[1]
     ghost_1 = Ghost(ghost_image, ghost_rect, 700, 320)
