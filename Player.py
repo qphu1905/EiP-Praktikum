@@ -15,7 +15,7 @@ class Player(Entities):
         self.speed = speed
         self.x_speed = 0
         self.y_speed = 0
-        self.hit_recently = False
+        self.hit_recently = False   #need this for i-frames
         self.time_since_last_hit=0
 
     def gravity(self, delta_time):
@@ -24,10 +24,7 @@ class Player(Entities):
             self.rect.y += self.y_speed
             self.y_coord = self.rect.y
             self.x_coord = self.rect.x
-    '''def air_resistance(self, delta_time):
-        
 
-        self.x_speed -= x * delta_time'''
 
 
 
@@ -60,7 +57,7 @@ class Player(Entities):
                 if p.rect.collidepoint(self.rect.midtop):
                     self.rect.top = p.rect.bottom
                     self.y_speed = 0
-        if self.hit_recently:
+        if self.hit_recently:                   #if you dont like it just remove it
                 self.time_since_last_hit += 1
                 if self.time_since_last_hit == 30:
                     self.hit_recently = False
