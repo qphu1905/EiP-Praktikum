@@ -7,7 +7,7 @@ pg.init()
 SCREEN = pg.display.set_mode((1200, 700))
 pg.display.set_caption("Menu")
 
-BACKGROUND = pg.image.load("Menu_BG.png")
+BACKGROUND = pg.image.load("Background.png")
 BACKGROUND = pg.transform.scale(BACKGROUND, (1200, 700))
 
 def get_font(size):
@@ -15,7 +15,7 @@ def get_font(size):
 
 
 def play():
-    pg.display.set_caption("Play")
+    pg.display.set_caption("Game")
 
     while True:
 
@@ -49,11 +49,11 @@ def main_menu():
 
         MENU_MOUSE_POS = pg.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("MAIN MENU", True, "Black")
-        MENU_RECT = MENU_TEXT.get_rect(center = (610, 200))
+        MENU_TEXT = get_font(100).render("MAIN MENU", True, "White")
+        MENU_RECT = MENU_TEXT.get_rect(center = (608, 200))
 
-        PLAY_BUTTON = Button(image = pg.image.load("Play_Rect.png"), pos = (610, 350), text_input = "PLAY", font = get_font(75),base_color = "White", hovering_color = "Gray")
-        QUIT_BUTTON = Button(image = pg.image.load("Quit_Rect.png"),pos = (610, 500), text_input = "QUIT", font = get_font(75),base_color = "White", hovering_color = "Gray")
+        PLAY_BUTTON = Button(image = pg.image.load("Play_Rect.png"), pos = (608, 350), text_input = "PLAY", font = get_font(70),base_color = "Black", hovering_color = "Gray")
+        QUIT_BUTTON = Button(image = None,pos = (608, 500), text_input = "QUIT", font = get_font(70),base_color = "Black", hovering_color = "Gray")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
