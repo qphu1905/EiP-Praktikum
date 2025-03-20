@@ -20,13 +20,11 @@ class Enemy(Entities):
 
 
 
-    def collision(self, platforms):
-        for p in platforms:
-            if pygame.Rect.colliderect(self.rect, p.rect):
-                if self.x_speed > 0:
-                    self.rect.right = p.rect.left
-                if self.x_speed < 0:
-                    self.rect.left = p.rect.right
+    def collision(self, player_hitboxes):
+        for hitbox in player_hitboxes:
+            if pygame.Rect.colliderect(self.rect, hitbox.rect):
+                self.hitpoints -= hitbox.damage
+
 
 
 
