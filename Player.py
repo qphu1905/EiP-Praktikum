@@ -10,29 +10,30 @@ class Player(Entities):
         self.pos = pygame.Vector2(x_coord, y_coord)
         self.velocity = pygame.Vector2(0,0)
         self.acceleration = pygame.Vector2(0,0)
+        self.acc = 1
+        self.fric = -0.12
         self.onground = False
-        self.jumps = 0
 
-    def move(self, acc, fric):
+    def move(self):
         self.acceleration = pygame.Vector2(0,0.5)
 
         pressed_keys = pygame.key.get_pressed()
 
         if pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_a]:
-            self.acceleration.x = -acc
+            self.acceleration.x = -self.acc
         if pressed_keys[pygame.K_RIGHT] or pressed_keys[pygame.K_d]:
-            self.acceleration.x = acc
+            self.acceleration.x = self.acc
         if pressed_keys[pygame.K_DOWN] or pressed_keys[pygame.K_s]:
             self.acceleration.y += 1
 
-        self.acceleration.x += self.velocity.x * fric
+        self.acceleration.x += self.velocity.x * self.fric
         self.velocity += self.acceleration
         self.pos += self.velocity + 0.5 * self.acceleration
         self.rect.center = self.pos
 
 
     def jump(self):
-        #if self.onground:
+        if self.onground:
             self.velocity.y = -15
             self.onground = False
 
